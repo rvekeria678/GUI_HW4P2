@@ -3,8 +3,39 @@ $(document).ready(function(){
     $("#colswp").hide();
     $("#table-container").hide();
     $("#save-btn").prop("disabled", true);
+    
+    $("#rowslider").slider({
+        range: true,
+        values: [-5,25],
+        max: 50,
+        min: -50,
+        step: 1,
+        animate: true
+    });
+    $("#colslider").slider({
+        range: true,
+        values: [-25,5],
+        max: 50,
+        min: -50,
+        step: 1,
+        animate: true
+    })
+
+    $("#rowmin").val($("#rowslider").slider("values")[0]);
+    $("#rowmax").val($("#rowslider").slider("values")[1]);
+
     var iform = $("#inputform");
     var validator = $("#inputform").validate({
+        errorPlacement: function(error, element) {
+            if (element.attr("name") == "rmin")
+                error.appendTo("#rowcontainer");
+            if (element.attr("name") == "rmax")
+                error.appendTo("#rowcontainer");
+            if (element.attr("name") == "cmin")
+                error.appendTo("#colcontainer");
+            if (element.attr("name") == "cmax")
+                error.appendTo("#colcontainer");
+        },
         rules: {
             rmin: {
                 required: true,
@@ -25,20 +56,20 @@ $(document).ready(function(){
         },
         messages: {
             rmin: {
-                required: "Please enter an integer for this field!",
-                range: "Please make sure to enter a number between -50 and 50!"
+                required: "Please enter an integer for the minimum field!",
+                range: "Please make sure the minimum is between -50 and 50!"
             },
             rmax: {
-                required: "Please enter an integer for this field!",
-                range: "Please make sure to enter a number between -50 and 50!"
+                required: "Please enter an integer for the maximum field!",
+                range: "Please make sure the maximum is between -50 and 50!"
             },
             cmin: {
-                required: "Please enter an integer for this field!",
-                range: "Please make sure to enter a number between -50 and 50!"
+                required: "Please enter an integer for the minimum field!",
+                range: "Please make sure the maximum is between -50 and 50!"
             },
             cmax: {
-                required: "Please enter an integer for this field!",
-                range: "Please make sure to enter a number between -50 and 50!"
+                required: "Please enter an integer for the maximum field!",
+                range: "Please make sure the maximum is between -50 and 50!"
             }
         }
     });
@@ -109,7 +140,7 @@ $(document).ready(function(){
         validator.resetForm();
         $("#save-btn").prop("disabled", true);
     });
-    $("#save-btn").click(function(){
+    $("#delete-btn").click(function(){
         // Save button code
     });
 });
