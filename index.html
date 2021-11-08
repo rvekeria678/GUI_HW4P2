@@ -1,0 +1,76 @@
+<!--
+File: index.html
+GUI Assignment: Creating a functional multiplication table
+Raj Vekeria, UMass Lowell Computer Science, rvekeria@cs.uml.edu
+Copyright(c) 2021 by Raj. All rights reserved. May be freely copied or
+excerpted for educational purposes with credit to the author
+updated by RV on October 21, 2021 at 9:30 AM
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial scale=1">
+        <title>Multiplication Table</title>
+        <link href="css/style.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="js/jquery.validate.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+    </head>
+    <body>
+        <div class="container-fluid h-100" id="wrapper">
+            <div class="row">
+                <div class="col-xs-12 col-md-12" id="title">Multiplication Table</div>
+                <div class="col-xs-12 col-sm-5 col-md-4 col-lg-2 h-100" id="navbar">
+                    <form id="inputform">
+                        <fieldset>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label class="mr-2" for="rowmin">Minimum Row Value:</label>
+                                </div>
+                                <div class="col-sm-12">
+                                    <input type="number" id="rowmin" name="rmin" placeholder="Enter an integer">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label class="mr-2" for="rowmax">Maximum Row Value:</label>
+                                </div>
+                                <div class="col-sm-12">
+                                    <input type="number" id="rowmax" name="rmax" placeholder="Enter an integer">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label class="mr-2" for="colmin">Minimum Column Value:</label>
+                                </div>
+                                <div class="col-sm-12">
+                                    <input type="number" id="colmin" name="cmin" placeholder="Enter an integer">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label class="mr-2" for="colmax">Maximum Column Value:</label>
+                                </div>
+                                <div class="col-sm-12">
+                                    <input type="number" id="colmax" name="cmax" placeholder="Enter an integer">
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-outline-light mt-3" id="submit-btn">Submit</button>
+                            <button type="button" class="btn btn-outline-light ml-1 mt-3" id="clear-btn">Clear</button>
+                            <button type="button" class="btn btn-outline-light ml-1 mt-3" id="save-btn">Save</button>
+                        </fieldset>
+                    </form>
+                    <div id="rowswp">The minimum row value was larger than the maximum row value! These values have been swapped.</div>
+                    <div id="colswp">The minimum column value was larger than the maximum column value! These values have been swapped.</div>
+                </div>
+                <div class="col-xs-12 col-sm-7 col-md-8 col-lg-10">
+                    <div class="m-3" id="table-container"></div>
+                </div>
+            </div>
+        </div>
+    <script src="js/add-content.js"></script>
+    </body>
+</html>
