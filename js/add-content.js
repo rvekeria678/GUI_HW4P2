@@ -46,13 +46,15 @@ $(document).ready(function(){
     $("#submit-btn").click(function(){
         if (iform.valid()) {
             $("#table-container").show();
+            $("#rowswp").hide();
+            $("#colswp").hide();
             $("#clear-btn").prop("disabled", false);
             $("#save-btn").prop("disabled", false);
 
-            var rmin = $("#rowmin").val();
-            var rmax = $("#rowmax").val();
-            var cmin = $("#colmin").val();
-            var cmax = $("#colmax").val();
+            var rmin = parseInt($("#rowmin").val());
+            var rmax = parseInt($("#rowmax").val());
+            var cmin = parseInt($("#colmin").val());
+            var cmax = parseInt($("#colmax").val());
 
             if (rmin > rmax) {
                 var temp = rmin;
