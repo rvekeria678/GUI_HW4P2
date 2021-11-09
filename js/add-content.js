@@ -2,27 +2,6 @@ $(document).ready(function(){
     $("#rowswp").hide();
     $("#colswp").hide();
     $("#table-container").hide();
-    $("#save-btn").prop("disabled", true);
-    
-    $("#rowslider").slider({
-        range: true,
-        values: [-5,25],
-        max: 50,
-        min: -50,
-        step: 1,
-        animate: true
-    });
-    $("#colslider").slider({
-        range: true,
-        values: [-25,5],
-        max: 50,
-        min: -50,
-        step: 1,
-        animate: true
-    })
-
-    $("#rowmin").val($("#rowslider").slider("values")[0]);
-    $("#rowmax").val($("#rowslider").slider("values")[1]);
 
     var iform = $("#inputform");
     var validator = $("#inputform").validate({
@@ -73,8 +52,56 @@ $(document).ready(function(){
             }
         }
     });
+    $("#rowslider").slider({
+        range: true,
+        values: [-5,25],
+        max: 50,
+        min: -50,
+        step: 1,
+        animate: true,
+        slide: function(event, ui) {
+            var nums = $("#rowslider").slider("values");
+            $("#rowmin").val(ui.values[0]);
+            $("#rowmax").val(ui.values[1]);
+            something();
+        }
+    });
+    /* Reference: https://stackoverflow.com/questions/6131970/jquery-ui-slider-update-value-from-code
+    */
+    $("#rowmin").change(function(){
+        if (iform.valid())
+            $("#rowslider").slider('values',0,$(this).val());
+    });
+    $("#rowmax").change(function(){
+        if (iform.valid())
+            $("#rowslider").slider('values',1,$(this).val());
+    });
 
-    $("#submit-btn").click(function(){
+    $("#colslider").slider({
+        range: true,
+        values: [-35,5],
+        max: 50,
+        min: -50,
+        step: 1,
+        animate: true,
+        slide: function(event, ui) {
+            $("#colmin").val(ui.values[0]);
+            $("#colmax").val(ui.values[1]);
+            something();
+        }
+    });
+    /* Reference: https://stackoverflow.com/questions/6131970/jquery-ui-slider-update-value-from-code
+    */
+    $("#colmin").change(function(){
+        if (iform.valid())
+            $("#colslider").slider('values',0,$(this).val());
+    });
+    $("#colmax").change(function(){
+        if (iform.valid())
+            $("#colslider").slider('values',1,$(this).val());
+    });
+
+    function something(){
         if (iform.valid()) {
             $("#table-container").show();
             $("#rowswp").hide();
@@ -127,8 +154,8 @@ $(document).ready(function(){
             }
             $("#table-container").html("<table>" + table + "</table>");
         }
-    });
-    $("#clear-btn").click(function(){
+    }
+    $("#reset-btn").click(function(){
         $("#table-container").hide();
         $("#rowswp").hide();
         $("#colswp").hide();
@@ -138,7 +165,6 @@ $(document).ready(function(){
         $("#colmax").val("");
         // Reference: https://jqueryvalidation.org/Validator.resetForm/
         validator.resetForm();
-        $("#save-btn").prop("disabled", true);
     });
     $("#delete-btn").click(function(){
         // Save button code

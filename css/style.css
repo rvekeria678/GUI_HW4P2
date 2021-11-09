@@ -28,8 +28,10 @@ body, html {
     border: ridge white 4px;
     border-top: none;
     height: auto;
+    color: white;
 }
 #table-container {
+    height: 800px;
     overflow: scroll;
     border: double 7px rgb(255, 255, 255);
 }
