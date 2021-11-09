@@ -31,9 +31,9 @@ body, html {
     color: white;
 }
 #table-container {
-    height: 800px;
+    height: auto;
     overflow: scroll;
-    border: double 7px rgb(255, 255, 255);
+    border: solid 4px rgb(255, 255, 255);
 }
 form {
     text-align: center;

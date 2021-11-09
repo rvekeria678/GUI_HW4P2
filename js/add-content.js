@@ -59,24 +59,31 @@ $(document).ready(function(){
         min: -50,
         step: 1,
         animate: true,
+        start: function(event, ui) {
+            $("#rowmin").val(ui.values[0]);
+            $("#rowmax").val(ui.values[1]);
+            generateTable();
+        },
         slide: function(event, ui) {
             var nums = $("#rowslider").slider("values");
             $("#rowmin").val(ui.values[0]);
             $("#rowmax").val(ui.values[1]);
-            something();
+            generateTable();
         }
     });
     /* Reference: https://stackoverflow.com/questions/6131970/jquery-ui-slider-update-value-from-code
     */
     $("#rowmin").change(function(){
-        if (iform.valid())
+        if (iform.valid()){
             $("#rowslider").slider('values',0,$(this).val());
-            something();
+            generateTable();
+        }
     });
     $("#rowmax").change(function(){
-        if (iform.valid())
+        if (iform.valid()){
             $("#rowslider").slider('values',1,$(this).val());
-            something();
+            generateTable();
+        }
     });
 
     $("#colslider").slider({
@@ -86,24 +93,33 @@ $(document).ready(function(){
         min: -50,
         step: 1,
         animate: true,
+        start: function(event, ui) {
+            $("#colmin").val(ui.values[0]);
+            $("#colmax").val(ui.values[1]);
+            generateTable();
+        },
         slide: function(event, ui) {
             $("#colmin").val(ui.values[0]);
             $("#colmax").val(ui.values[1]);
-            something();
+            generateTable();
         }
     });
     /* Reference: https://stackoverflow.com/questions/6131970/jquery-ui-slider-update-value-from-code
     */
     $("#colmin").change(function(){
-        if (iform.valid())
+        if (iform.valid()){
             $("#colslider").slider('values',0,$(this).val());
+            generateTable();
+        }
     });
     $("#colmax").change(function(){
-        if (iform.valid())
+        if (iform.valid()) {
             $("#colslider").slider('values',1,$(this).val());
+            generateTable();
+        }
     });
 
-    function something(){
+    function generateTable(){
         if (iform.valid()) {
             $("#table-container").show();
             $("#rowswp").hide();
@@ -123,6 +139,8 @@ $(document).ready(function(){
                 $("#rowswp").show();
                 $("#rowmin").val(rmin);
                 $("#rowmax").val(rmax);
+                $("#rowslider").slider('values',0,rmin);
+                $("#rowslider").slider('values',1,rmax);
             }
             if (cmin > cmax) {
                 var temp = cmin;
@@ -131,6 +149,8 @@ $(document).ready(function(){
                 $("#colswp").show();
                 $("#colmin").val(cmin);
                 $("#colmax").val(cmax);
+                $("#colslider").slider('values',0,cmin);
+                $("#colslider").slider('values',1,cmax);
             }
 
             var table = '';
