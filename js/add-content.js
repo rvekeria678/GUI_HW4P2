@@ -71,10 +71,12 @@ $(document).ready(function(){
     $("#rowmin").change(function(){
         if (iform.valid())
             $("#rowslider").slider('values',0,$(this).val());
+            something();
     });
     $("#rowmax").change(function(){
         if (iform.valid())
             $("#rowslider").slider('values',1,$(this).val());
+            something();
     });
 
     $("#colslider").slider({
