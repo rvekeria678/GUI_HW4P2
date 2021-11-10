@@ -79,3 +79,9 @@ td:first-child, tr:first-child{
 label {
     text-align: center;
 }
+#rowslider .ui-slider-range, #colslider .ui-slider-range{
+    background: rgb(150, 197, 144);
+}
+#tabs {
+    margin-top: 15px;
+}

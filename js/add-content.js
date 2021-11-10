@@ -52,6 +52,9 @@ $(document).ready(function(){
             }
         }
     });
+
+    $("#tabs").tabs();
+
     $("#rowslider").slider({
         range: true,
         values: [-5,25],
@@ -59,7 +62,7 @@ $(document).ready(function(){
         min: -50,
         step: 1,
         animate: true,
-        start: function(event, ui) {
+        change: function(event, ui) {
             $("#rowmin").val(ui.values[0]);
             $("#rowmax").val(ui.values[1]);
             generateTable();
@@ -93,7 +96,7 @@ $(document).ready(function(){
         min: -50,
         step: 1,
         animate: true,
-        start: function(event, ui) {
+        change: function(event, ui) {
             $("#colmin").val(ui.values[0]);
             $("#colmax").val(ui.values[1]);
             generateTable();
