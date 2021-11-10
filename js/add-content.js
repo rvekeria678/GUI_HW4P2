@@ -2,6 +2,12 @@ $(document).ready(function(){
     $("#rowswp").hide();
     $("#colswp").hide();
     $("#table-container").hide();
+    $("#save-btn").prop("disabled",true);
+    var tabs = $("#tabs").tabs();
+    var ul = tabs.find("ul");
+    var numTabs = 0;
+    var TabLimit = 10;
+    var table = '';
 
     $("#rowmin").val(-5);
     $("#rowmax").val(25);
@@ -57,9 +63,6 @@ $(document).ready(function(){
             }
         }
     });
-
-    $("#tabs").tabs();
-
     $("#rowslider").slider({
         range: true,
         values: [-5,25],
@@ -67,15 +70,17 @@ $(document).ready(function(){
         min: -50,
         step: 1,
         animate: true,
-        start: function(event, ui) {
+        stop: function(event, ui) {
             $("#rowmin").val(ui.values[0]);
             $("#rowmax").val(ui.values[1]);
+            $("#save-btn").prop("disabled",false);
             generateTable();
         },
         slide: function(event, ui) {
             var nums = $("#rowslider").slider("values");
             $("#rowmin").val(ui.values[0]);
             $("#rowmax").val(ui.values[1]);
+            $("#save-btn").prop("disabled",false);
             generateTable();
         }
     });
@@ -84,12 +89,14 @@ $(document).ready(function(){
     $("#rowmin").change(function(){
         if (iform.valid()){
             $("#rowslider").slider('values',0,$(this).val());
+            $("#save-btn").prop("disabled",false);
             generateTable();
         }
     });
     $("#rowmax").change(function(){
         if (iform.valid()){
             $("#rowslider").slider('values',1,$(this).val());
+            $("#save-btn").prop("disabled",false);
             generateTable();
         }
     });
@@ -104,11 +111,13 @@ $(document).ready(function(){
         start: function(event, ui) {
             $("#colmin").val(ui.values[0]);
             $("#colmax").val(ui.values[1]);
+            $("#save-btn").prop("disabled",false);
             generateTable();
         },
         slide: function(event, ui) {
             $("#colmin").val(ui.values[0]);
             $("#colmax").val(ui.values[1]);
+            $("#save-btn").prop("disabled",false);
             generateTable();
         }
     });
@@ -117,12 +126,14 @@ $(document).ready(function(){
     $("#colmin").change(function(){
         if (iform.valid()){
             $("#colslider").slider('values',0,$(this).val());
+            $("#save-btn").prop("disabled",false);
             generateTable();
         }
     });
     $("#colmax").change(function(){
         if (iform.valid()) {
             $("#colslider").slider('values',1,$(this).val());
+            $("#save-btn").prop("disabled",false);
             generateTable();
         }
     });
@@ -161,7 +172,7 @@ $(document).ready(function(){
                 $("#colslider").slider('values',1,cmax);
             }
 
-            var table = '';
+            table = '';
             var y = rmin;
 
             var check = 0;
@@ -178,26 +189,26 @@ $(document).ready(function(){
                 ++y;
                 ++check;
                 for (var j = cmin; j <= cmax; j++) {
-                    table += '<td id="innertbl">' + i * j + '</td>';
+                    table += '<td id="innertbl" title="row: '+i+', column: '+j+'">' + i * j + '</td>';
                 }
                 table += '</tr>';
             }
             $("#table-container").html("<table>" + table + "</table>");
         }
     }
-    $("#reset-btn").click(function(){
-        $("#table-container").hide();
-        $("#rowswp").hide();
-        $("#colswp").hide();
-        $("#rowmin").val(0);
-        $("#rowmax").val(0);
-        $("#colmin").val(0);
-        $("#colmax").val(0);
-        // Reference: https://jqueryvalidation.org/Validator.resetForm/
-        //validator.resetForm();
-        generateTable();
+    $("#save-btn").click(function(){
+        if (numTabs < TabLimit) {
+            ++numTabs;
+            var rmin = parseInt($("#rowmin").val());
+            var rmax = parseInt($("#rowmax").val());
+            var cmin = parseInt($("#colmin").val());
+            var cmax = parseInt($("#colmax").val());
+            $("div#tabs ul").append("<li><a href='#save"+numTabs+"'> R["+rmin+","+rmax+"]C:["+cmin+","+cmax+"]</a></li>");
+            $("div#tabs").append("<div class='saves' id='save"+numTabs+"'><table>"+table+"</table></div>");
+            $("div#tabs").tabs("refresh");
+        }
     });
     $("#delete-btn").click(function(){
-        // Save button code
+        $("#save1").remove();
     });
 });
