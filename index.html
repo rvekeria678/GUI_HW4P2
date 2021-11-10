@@ -26,8 +26,13 @@ updated by RV on October 21, 2021 at 9:30 AM
             <div class="row">
                 <div class="col-xs-12 col-md-12" id="title">Multiplication Table</div>
                 <div class="col-xs-12 col-md-4 col-lg-3 h-100" id="navbar">
+                    <h4>Input Panel</h4>
                     <form id="inputform">
-                        <fieldset>   
+                        <fieldset>
+                            <div class="row" id="mlabel">
+                                <div class="col-xs-6 mr-auto">Min</div>
+                                <div class="col-xs-6 ml-auto">Max</div>
+                            </div>   
                             <div class="row" id="rowcontainer">
                                 <div class="col-xs-4 mr-auto">
                                     <input type="number" id="rowmin" name="rmin" placeholder="Min">
@@ -41,6 +46,10 @@ updated by RV on October 21, 2021 at 9:30 AM
                             </div>
                             <div class = "row">
                                 <div id="rowslider" class="col-sm-12"></div>
+                            </div>
+                            <div class="row" id="mlabel">
+                                <div class="col-xs-6 mr-auto">Min</div>
+                                <div class="col-xs-6 ml-auto">Max</div>
                             </div>
                             <div class="row" id="colcontainer">
                                 <div class="col-xs-2 mr-auto">
@@ -56,32 +65,30 @@ updated by RV on October 21, 2021 at 9:30 AM
                             <div class = "row">
                                 <div id="colslider" class="col-sm-12"></div>
                             </div>
-                            <button type="button" class="btn btn-outline-light mt-3" id="save-btn">Save</button>
-                            <button type="button" class="btn btn-outline-light ml-1 mt-3" id="reset-btn">Reset</button>
-                            <button type="button" class="btn btn-outline-light ml-1 mt-3" id="delete-btn">Delete</button>
+                            <button type="button" class="btn btn-outline-light mt-3 pl-4 pr-4" id="save-btn">Save</button>
+                <!--        <button type="button" class="btn btn-outline-light ml-1 mt-3" id="reset-btn">Reset</button> -->
+                            <button type="button" class="btn btn-outline-light ml-1 mt-3 pl-4 pr-4" id="delete-btn">Delete</button>
                         </fieldset>
                     </form> 
                     <div id="rowswp">The minimum row value was larger than the maximum row value! These values have been swapped.</div>
                     <div id="colswp">The minimum column value was larger than the maximum column value! These values have been swapped.</div>
                 </div>
-                <div class="col-xs-12 col-md-8 col-lg-9">
-                    <div id="tabs">
-                        <ul>
-                            <li><a href="#tabs-1">Home</a></li>
-                            <li><a href="#tabs-2">Help</a></li>
-                            <li><a href="#tabs-3">Saved Table</a></li>
-                        </ul>
-                        <div id="tabs-1">
-                            <div class="m-1" id="table-container"></div>
-                        </div>
-                        <div id="tabs-2">
-                            The construction of the multiplication table relies upon four values: the minimum row value, the maximum row value, the minimum column value, and the maximum column value. It is important to make sure the minimum values are smaller than their respective maxmimum values. If there is a case where the user enters a larger minimum value than the maximum value counterpart, these values will be switched; the user will be notified with a message.
-                            <br><br>
-                            Please make sure not to enter letters or special characters. The only input allowed is the use of whole numbers between -50 and 50 inclusively. One may use the slider or the textbox to input their data.
-                        </div>
-                        <div id="tabs-3">
-                            Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.
-                        </div>
+                <div class="col-xs-12 col-md-8 col-lg-9 w-100" id="tabs">
+                    <ul>
+                        <li><a href="#tabs-1">Home</a></li>
+                        <li><a href="#tabs-2">Help</a></li>
+                        <li><a href="#tabs-3">Saved Table</a></li>
+                    </ul>
+                    <div id="tabs-1">
+                        <div id="table-container"></div>
+                    </div>
+                    <div id="tabs-2">
+                        The construction of the multiplication table relies upon four values: the minimum row value, the maximum row value, the minimum column value, and the maximum column value. It is important to make sure the minimum values are smaller than their respective maxmimum values. If there is a case where the user enters a larger minimum value than the maximum value counterpart, these values will be switched; the user will be notified with a message.
+                        <br><br>
+                        Please make sure not to enter letters or special characters. The only input allowed is the use of whole numbers between -50 and 50 inclusively. One may use the slider or the textbox to input their data.
+                    </div>
+                    <div id="tabs-3">
+                        Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.
                     </div>
                 </div>
             </div>

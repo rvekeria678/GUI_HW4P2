@@ -3,6 +3,11 @@ $(document).ready(function(){
     $("#colswp").hide();
     $("#table-container").hide();
 
+    $("#rowmin").val(-5);
+    $("#rowmax").val(25);
+    $("#colmin").val(-35);
+    $("#colmax").val(5);
+
     var iform = $("#inputform");
     var validator = $("#inputform").validate({
         errorPlacement: function(error, element) {
@@ -62,7 +67,7 @@ $(document).ready(function(){
         min: -50,
         step: 1,
         animate: true,
-        change: function(event, ui) {
+        start: function(event, ui) {
             $("#rowmin").val(ui.values[0]);
             $("#rowmax").val(ui.values[1]);
             generateTable();
@@ -96,7 +101,7 @@ $(document).ready(function(){
         min: -50,
         step: 1,
         animate: true,
-        change: function(event, ui) {
+        start: function(event, ui) {
             $("#colmin").val(ui.values[0]);
             $("#colmax").val(ui.values[1]);
             generateTable();
@@ -173,7 +178,7 @@ $(document).ready(function(){
                 ++y;
                 ++check;
                 for (var j = cmin; j <= cmax; j++) {
-                    table += '<td>' + i * j + '</td>';
+                    table += '<td id="innertbl">' + i * j + '</td>';
                 }
                 table += '</tr>';
             }
@@ -184,12 +189,13 @@ $(document).ready(function(){
         $("#table-container").hide();
         $("#rowswp").hide();
         $("#colswp").hide();
-        $("#rowmin").val("");
-        $("#rowmax").val("");
-        $("#colmin").val("");
-        $("#colmax").val("");
+        $("#rowmin").val(0);
+        $("#rowmax").val(0);
+        $("#colmin").val(0);
+        $("#colmax").val(0);
         // Reference: https://jqueryvalidation.org/Validator.resetForm/
-        validator.resetForm();
+        //validator.resetForm();
+        generateTable();
     });
     $("#delete-btn").click(function(){
         // Save button code

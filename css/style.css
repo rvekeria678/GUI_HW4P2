@@ -23,12 +23,20 @@ body, html {
     border: ridge white 4px;
 }
 #navbar {
+    height: 100%;
     background-color: rgb(71, 71, 71);
-    padding: 30px;
     border: ridge white 4px;
     border-top: none;
     height: auto;
     color: white;
+}
+h4 {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    padding-top: 20px;
+    text-align: center;
+}
+#tabs {
+    width: 100%;
 }
 #table-container {
     height: auto;
@@ -39,11 +47,17 @@ form {
     text-align: center;
     font-size: 20px;
     color: white;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 20px;
 }
 table {
     table-layout: fixed;
     width: 100%;
     background: white;
+}
+tr:nth-child(odd){
+    background:rgb(197, 197, 197);
 }
 td {
     border: solid black 3px;
@@ -56,7 +70,7 @@ td {
 tr:hover {
     background-color:rgb(153, 213, 218);
 }
-td:hover {
+td:hover{
     background-color: orange;
 }
 td:first-child, tr:first-child{
@@ -69,7 +83,7 @@ td:first-child, tr:first-child{
 #rowswp, #colswp {
     color: white;
     text-align: center;
-    margin-top: 20px;
+    margin-bottom: 20px;
 }
 #rowslider, #colslider {
     text-align: center;
@@ -80,8 +94,16 @@ label {
     text-align: center;
 }
 #rowslider .ui-slider-range, #colslider .ui-slider-range{
-    background: rgb(150, 197, 144);
+    background: rgb(133, 132, 132);
 }
-#tabs {
-    margin-top: 15px;
+#rowslider .ui-slider-handle, #colslider .ui-slider-handle {
+    background: rgb(92, 92, 92);
+    border-radius: 35%;
+}
+#mlabel {
+    font-size: 15px;
+    font-style: italic;
+}
+#save-btn, #delete-btn {
+    font-size: 15px;
 }
