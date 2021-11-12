@@ -40,6 +40,7 @@ h4 {
 }
 #tabs {
     width: 100%;
+    background: rgb(252, 252, 252);
 }
 #table-container {
     height: 100%;
@@ -68,7 +69,7 @@ tr:nth-child(odd){
 td {
     border: solid black 3px;
     text-align: center;
-    width: 50px;
+    width: 60px;
 }
 #rowmin, #rowmax, #colmin, #colmax {
     width: 60px;
@@ -81,6 +82,7 @@ td:hover{
 }
 td:first-child, tr:first-child{
     background-color: rgb(150, 197, 144);
+    width: 60px;
 }
 .error {
     color: red;
@@ -112,4 +114,7 @@ label {
 }
 #save-btn, #delete-btn {
     font-size: 15px;
+}
+.ui-tabs .ui-tabs-nav {
+    background: rgb(192, 192, 192);
 }

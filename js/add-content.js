@@ -203,12 +203,13 @@ $(document).ready(function(){
             var rmax = parseInt($("#rowmax").val());
             var cmin = parseInt($("#colmin").val());
             var cmax = parseInt($("#colmax").val());
-            $("div#tabs ul").append("<li><a href='#save"+numTabs+"'> R["+rmin+","+rmax+"]C:["+cmin+","+cmax+"]</a></li>");
+            $("div#tabs ul").append("<li><a href='#save"+numTabs+"' id='t"+numTabs+"'> R["+rmin+","+rmax+"] C:["+cmin+","+cmax+"]</a><span class='ui-icon ui-icon-closethick'></span></li>");
             $("div#tabs").append("<div class='saves' id='save"+numTabs+"'><table>"+table+"</table></div>");
             $("div#tabs").tabs("refresh");
         }
     });
     $("#delete-btn").click(function(){
         $("#save1").remove();
+        $("#t1").remove();
     });
 });
