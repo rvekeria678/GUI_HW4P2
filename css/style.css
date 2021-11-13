@@ -120,3 +120,6 @@ label {
 .ui-tabs .ui-tabs-nav {
     background: rgb(192, 192, 192);
 }
+input[type=checkbox] {
+    transform: scale(1.2);
+}

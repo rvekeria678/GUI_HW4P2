@@ -203,13 +203,22 @@ $(document).ready(function(){
             var rmax = parseInt($("#rowmax").val());
             var cmin = parseInt($("#colmin").val());
             var cmax = parseInt($("#colmax").val());
-            $("div#tabs ul").append("<li><a href='#save"+numTabs+"' id='t"+numTabs+"'> R["+rmin+","+rmax+"] C:["+cmin+","+cmax+"]</a><span class='ui-icon ui-icon-closethick'></span></li>");
+            $("div#tabs ul").append("<li><a href='#save"+numTabs+"' id='t"+numTabs+"'>R["+rmin+","+rmax+"] C:["+cmin+","+cmax+"]</a><span class='ui-icon ui-icon-closethick'></span><input type='checkbox' id='tcheck'></li>");
             $("div#tabs").append("<div class='saves' id='save"+numTabs+"'><table>"+table+"</table></div>");
             $("div#tabs").tabs("refresh");
         }
     });
+    // Reference: https://jqueryui.com/tabs/#manipulation
+    tabs.on( "click", "span.ui-icon-closethick", function() {
+        var panelId = $( this ).closest( "li" ).remove().attr( "aria-controls" );
+        $( "#" + panelId ).remove();
+        tabs.tabs( "refresh" );
+        --numTabs;
+    });
     $("#delete-btn").click(function(){
-        $("#save1").remove();
-        $("#t1").remove();
+        panelId = $("#tcheck").checked().closest( "li" ).remove().attr( "aria-controls" );
+        $( "#" + panelId ).remove();
+        tabs.tabs( "refresh" );
+        --numTabs;;
     });
 });
