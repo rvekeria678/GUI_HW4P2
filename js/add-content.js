@@ -6,7 +6,7 @@ $(document).ready(function(){
     var tabs = $("#tabs").tabs();
     var ul = tabs.find("ul");
     var numTabs = 0;
-    var TabLimit = 10;
+    var TabLimit = 5;
     var table = '';
 
     $("#rowmin").val(-5);
@@ -203,22 +203,33 @@ $(document).ready(function(){
             var rmax = parseInt($("#rowmax").val());
             var cmin = parseInt($("#colmin").val());
             var cmax = parseInt($("#colmax").val());
-            $("div#tabs ul").append("<li><a href='#save"+numTabs+"' id='t"+numTabs+"'>R["+rmin+","+rmax+"] C:["+cmin+","+cmax+"]</a><span class='ui-icon ui-icon-closethick'></span><input type='checkbox' id='tcheck'></li>");
+            $("div#tabs ul").append("<li><a href='#save"+numTabs+"' class='atab'>R["+rmin+","+rmax+"] C:["+cmin+","+cmax+"]</a><span class='ui-icon ui-icon-closethick'></span><input type='checkbox' class='tcheck'></li>");
             $("div#tabs").append("<div class='saves' id='save"+numTabs+"'><table>"+table+"</table></div>");
             $("div#tabs").tabs("refresh");
+            if (numTabs >= TabLimit)
+                $("#save-btn").prop("disabled", true);
         }
     });
     // Reference: https://jqueryui.com/tabs/#manipulation
     tabs.on( "click", "span.ui-icon-closethick", function() {
-        var panelId = $( this ).closest( "li" ).remove().attr( "aria-controls" );
+        var panelId = $( this ).closest( "li" ).remove().attr("aria-controls");
         $( "#" + panelId ).remove();
         tabs.tabs( "refresh" );
         --numTabs;
+        $("#save-btn").prop("disabled", false);
+        var alist = document.getElementsByClassName('atab');
+        var divlist = document.getElementsByClassName('saves');
+        if (numTabs > 0) {
+            for (var y = 0; y <= numTabs; y++) {
+                var ny = y + 1;
+                alist[y].href = "#save"+ny;
+                divlist[y].id = "save"+ny;
+                tabs.tabs("refresh");
+            }
+        }
     });
     $("#delete-btn").click(function(){
-        panelId = $("#tcheck").checked().closest( "li" ).remove().attr( "aria-controls" );
-        $( "#" + panelId ).remove();
-        tabs.tabs( "refresh" );
-        --numTabs;;
+        var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
+        console.log("arr Length: " + checkboxes.length);
     });
 });
