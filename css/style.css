@@ -8,12 +8,14 @@ updated by RV on October 21, 2021 at 9:30 AM
 */
 body, html {
     height: 100%;
-    background-color:rgb(192, 192, 192);
+    background-image: url("../images/bg1.png");
+    background-position: center;
 }
 #wrapper {
     height: 100%;
     background-color:rgb(192, 192, 192);
     background-image: url("../images/bg1.png");
+    background-position: center;
 }
 #row {
     height: 100%;
@@ -42,10 +44,10 @@ h4 {
 #tabs {
     width: 100%;
     background: rgb(252, 252, 252);
-    max-height: 1500px;
+    max-height: 950px;
 }
-#table-container {
-    max-height: 1200px;
+#table-container, .tbles {
+    max-height: 750px;
     overflow: scroll;
     border: solid 4px rgb(255, 255, 255);
 }
@@ -64,6 +66,7 @@ table {
     table-layout: fixed;
     width: 100%;
     background: white;
+    max-height: 750px;
 }
 tr:nth-child(odd){
     background:rgb(197, 197, 197);

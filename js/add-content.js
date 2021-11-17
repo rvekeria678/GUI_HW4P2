@@ -1,19 +1,23 @@
 $(document).ready(function(){
+    // Initial page setup parameters
     $("#rowswp").hide();
     $("#colswp").hide();
     $("#table-container").hide();
     $("#save-btn").prop("disabled",true);
+    // Sets up tab functions / properties
     var tabs = $("#tabs").tabs();
     var ul = tabs.find("ul");
     var numTabs = 0;
-    var TabLimit = 5;
+    var TabLimit = 10;
     var table = '';
 
+    // Initial table values when page is set up
     $("#rowmin").val(-5);
     $("#rowmax").val(25);
     $("#colmin").val(-35);
     $("#colmax").val(5);
 
+    // sets up input form and validation plugin
     var iform = $("#inputform");
     var validator = $("#inputform").validate({
         errorPlacement: function(error, element) {
@@ -63,6 +67,8 @@ $(document).ready(function(){
             }
         }
     });
+
+    // Slider plugin implementation
     $("#rowslider").slider({
         range: true,
         values: [-5,25],
@@ -70,22 +76,29 @@ $(document).ready(function(){
         min: -50,
         step: 1,
         animate: true,
-        stop: function(event, ui) {
-            $("#rowmin").val(ui.values[0]);
-            $("#rowmax").val(ui.values[1]);
-            $("#save-btn").prop("disabled",false);
-            generateTable();
+        start: function(event, ui) {
+            if (numTabs >= TabLimit) {
+                $("#save-btn").prop("disabled",true);
+            }
         },
         slide: function(event, ui) {
             var nums = $("#rowslider").slider("values");
             $("#rowmin").val(ui.values[0]);
             $("#rowmax").val(ui.values[1]);
-            $("#save-btn").prop("disabled",false);
+            if (numTabs >= TabLimit){
+                $("#save-btn").prop("disabled",true);
+            }
             generateTable();
+        },
+        stop: function(event, ui){
+            if (numTabs >= TabLimit) {
+                $("#save-btn").prop("disabled",true);
+            }
         }
     });
     /* Reference: https://stackoverflow.com/questions/6131970/jquery-ui-slider-update-value-from-code
     */
+    // Binds text box value to that of the slider
     $("#rowmin").change(function(){
         if (iform.valid()){
             $("#rowslider").slider('values',0,$(this).val());
@@ -100,7 +113,6 @@ $(document).ready(function(){
             generateTable();
         }
     });
-
     $("#colslider").slider({
         range: true,
         values: [-35,5],
@@ -111,14 +123,28 @@ $(document).ready(function(){
         start: function(event, ui) {
             $("#colmin").val(ui.values[0]);
             $("#colmax").val(ui.values[1]);
-            $("#save-btn").prop("disabled",false);
+            if (numTabs >= TabLimit){
+                $("#save-btn").prop("disabled",false);
+            }
             generateTable();
+        },
+        start: function(event, ui) {
+            if (numTabs >= TabLimit) {
+                $("#save-btn").prop("disabled",true);
+            }
         },
         slide: function(event, ui) {
             $("#colmin").val(ui.values[0]);
             $("#colmax").val(ui.values[1]);
-            $("#save-btn").prop("disabled",false);
+            if (numTabs >= TabLimit){
+                $("#save-btn").prop("disabled",false);
+            }
             generateTable();
+        },
+        stop: function(event, ui){
+            if (numTabs >= TabLimit) {
+                $("#save-btn").prop("disabled",true);
+            }
         }
     });
     /* Reference: https://stackoverflow.com/questions/6131970/jquery-ui-slider-update-value-from-code
@@ -203,8 +229,8 @@ $(document).ready(function(){
             var rmax = parseInt($("#rowmax").val());
             var cmin = parseInt($("#colmin").val());
             var cmax = parseInt($("#colmax").val());
-            $("div#tabs ul").append("<li><a href='#save"+numTabs+"' class='atab'>R["+rmin+","+rmax+"] C:["+cmin+","+cmax+"]</a><span class='ui-icon ui-icon-closethick'></span><input type='checkbox' class='tcheck'></li>");
-            $("div#tabs").append("<div class='saves' id='save"+numTabs+"'><table>"+table+"</table></div>");
+            $("div#tabs ul").append("<li><a href='#save"+numTabs+"' class='atab'>R["+rmin+","+rmax+"] C:["+cmin+","+cmax+"] </a><span class='ui-icon ui-icon-closethick'></span><input type='checkbox' class='tcheck'></li>");
+            $("div#tabs").append("<div class='saves' id='save"+numTabs+"'><div class='tbles'><table>"+table+"</table></div></div>");
             $("div#tabs").tabs("refresh");
             if (numTabs >= TabLimit)
                 $("#save-btn").prop("disabled", true);
@@ -219,17 +245,43 @@ $(document).ready(function(){
         $("#save-btn").prop("disabled", false);
         var alist = document.getElementsByClassName('atab');
         var divlist = document.getElementsByClassName('saves');
+
+        console.log("alist len: " + alist.length);
+        console.log("divlist len: " + divlist.length);
+
         if (numTabs > 0) {
             for (var y = 0; y <= numTabs; y++) {
                 var ny = y + 1;
-                alist[y].href = "#save"+ny;
-                divlist[y].id = "save"+ny;
+                if (alist[y]) alist[y].href = "#save"+ny;
+                if (divlist[y]) divlist[y].id = "save"+ny;
                 tabs.tabs("refresh");
             }
         }
     });
     $("#delete-btn").click(function(){
-        var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
-        console.log("arr Length: " + checkboxes.length);
+        var checkArr = document.querySelectorAll('input[type=checkbox]:checked');
+        
+        $('.tcheck:checkbox:checked').each(function(){
+            var panelId = $(this).closest("li").remove().attr("aria-controls");
+            $("#"+panelId).remove();
+            tabs.tabs("refresh");
+            --numTabs;
+            $("#save-btn").prop("disabled", false);
+        });
+
+        var alist = document.getElementsByClassName('atab');
+        var divlist = document.getElementsByClassName('saves');
+
+        console.log("alist size: " + alist.length);
+        console.log("divlist size: " + divlist.length);
+
+        if (numTabs > 0) {
+            for (var y = 0; y <= numTabs; y++) {
+                var ny = y + 1;
+                if (alist[y]) alist[y].href = "#save"+ny;
+                if (divlist[y]) divlist[y].id = "save"+ny;
+                tabs.tabs("refresh");
+            }
+        }
     });
 });
