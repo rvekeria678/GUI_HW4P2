@@ -1,3 +1,11 @@
+/*
+File: index.html
+GUI Assignment: Creating a functional multiplication table
+Raj Vekeria, UMass Lowell Computer Science, rvekeria@cs.uml.edu
+Copyright(c) 2021 by Raj. All rights reserved. May be freely copied or
+excerpted for educational purposes with credit to the author
+updated by RV on November 18, 2021 at 9:30 AM
+*/
 $(document).ready(function(){
     // Initial page setup parameters
     $("#rowswp").hide();
@@ -223,7 +231,7 @@ $(document).ready(function(){
         }
     }
     $("#save-btn").click(function(){
-        if (numTabs < TabLimit) {
+        if (numTabs < TabLimit && iform.valid()) {
             ++numTabs;
             var rmin = parseInt($("#rowmin").val());
             var rmax = parseInt($("#rowmax").val());

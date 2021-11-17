@@ -4,7 +4,7 @@ GUI Assignment: Creating a functional multiplication table
 Raj Vekeria, UMass Lowell Computer Science, rvekeria@cs.uml.edu
 Copyright(c) 2021 by Raj. All rights reserved. May be freely copied or
 excerpted for educational purposes with credit to the author
-updated by RV on October 21, 2021 at 9:30 AM
+updated by RV on November 18, 2021 at 9:30 AM
 */
 body, html {
     height: 100%;
@@ -67,6 +67,7 @@ table {
     width: 100%;
     background: white;
     max-height: 750px;
+    font-weight: 500;
 }
 tr:nth-child(odd){
     background:rgb(197, 197, 197);
@@ -88,6 +89,7 @@ td:hover{
 td:first-child, tr:first-child{
     background-color: rgb(150, 197, 144);
     width: 60px;
+    font-style: italic;
 }
 .error {
     color: red;
