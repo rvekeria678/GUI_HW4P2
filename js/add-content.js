@@ -1,5 +1,5 @@
 /*
-File: index.html
+File: add-content.js
 GUI Assignment: Creating a functional multiplication table
 Raj Vekeria, UMass Lowell Computer Science, rvekeria@cs.uml.edu
 Copyright(c) 2021 by Raj. All rights reserved. May be freely copied or
@@ -26,6 +26,9 @@ $(document).ready(function(){
     $("#colmax").val(5);
 
     // sets up input form and validation plugin
+    // Reference: https://jqueryvalidation.org/valid/
+    // Reference: https://jqueryvalidation.org/documentation/
+    // Reference: https://jqueryvalidation.org/validate/
     var iform = $("#inputform");
     var validator = $("#inputform").validate({
         errorPlacement: function(error, element) {
@@ -76,7 +79,9 @@ $(document).ready(function(){
         }
     });
 
-    // Slider plugin implementation
+    // Slider implementation for row values
+    // Reference: https://jqueryui.com/slider/
+    // Reference: https://jqueryui.com/slider/#range
     $("#rowslider").slider({
         range: true,
         values: [-5,25],
@@ -104,9 +109,8 @@ $(document).ready(function(){
             }
         }
     });
-    /* Reference: https://stackoverflow.com/questions/6131970/jquery-ui-slider-update-value-from-code
-    */
     // Binds text box value to that of the slider
+    // Reference: https://stackoverflow.com/questions/6131970/jquery-ui-slider-update-value-from-code
     $("#rowmin").change(function(){
         if (iform.valid()){
             $("#rowslider").slider('values',0,$(this).val());
@@ -114,6 +118,7 @@ $(document).ready(function(){
             generateTable();
         }
     });
+    // Reference: https://stackoverflow.com/questions/6131970/jquery-ui-slider-update-value-from-code
     $("#rowmax").change(function(){
         if (iform.valid()){
             $("#rowslider").slider('values',1,$(this).val());
@@ -121,6 +126,9 @@ $(document).ready(function(){
             generateTable();
         }
     });
+    // slider implementation for column values
+    // Reference: https://jqueryui.com/slider/
+    // Reference: https://jqueryui.com/slider/#range
     $("#colslider").slider({
         range: true,
         values: [-35,5],
@@ -155,8 +163,7 @@ $(document).ready(function(){
             }
         }
     });
-    /* Reference: https://stackoverflow.com/questions/6131970/jquery-ui-slider-update-value-from-code
-    */
+    // Reference: https://stackoverflow.com/questions/6131970/jquery-ui-slider-update-value-from-code
     $("#colmin").change(function(){
         if (iform.valid()){
             $("#colslider").slider('values',0,$(this).val());
@@ -164,6 +171,7 @@ $(document).ready(function(){
             generateTable();
         }
     });
+    // Reference: https://stackoverflow.com/questions/6131970/jquery-ui-slider-update-value-from-code
     $("#colmax").change(function(){
         if (iform.valid()) {
             $("#colslider").slider('values',1,$(this).val());
@@ -171,7 +179,7 @@ $(document).ready(function(){
             generateTable();
         }
     });
-
+    // @Def: Generates tables given from either the textfield or slider input.
     function generateTable(){
         if (iform.valid()) {
             $("#table-container").show();
@@ -185,6 +193,7 @@ $(document).ready(function(){
             var cmin = parseInt($("#colmin").val());
             var cmax = parseInt($("#colmax").val());
 
+            // Switches row values if min > max
             if (rmin > rmax) {
                 var temp = rmin;
                 rmin = rmax;
@@ -195,6 +204,7 @@ $(document).ready(function(){
                 $("#rowslider").slider('values',0,rmin);
                 $("#rowslider").slider('values',1,rmax);
             }
+            // Switches column values if min > max
             if (cmin > cmax) {
                 var temp = cmin;
                 cmin = cmax;
@@ -208,7 +218,6 @@ $(document).ready(function(){
 
             table = '';
             var y = rmin;
-
             var check = 0;
 
             table += '<tr>' + '<td>' + ' ' + '</td>';                       
@@ -230,9 +239,12 @@ $(document).ready(function(){
             $("#table-container").html("<table>" + table + "</table>");
         }
     }
+    // @Def: Saves table by creating a new tab (if tab limit not reached) and pulls table that is currently
+    // built from the generateTable() function
     $("#save-btn").click(function(){
         if (numTabs < TabLimit && iform.valid()) {
             ++numTabs;
+            // values pulled from input to create the title for tab
             var rmin = parseInt($("#rowmin").val());
             var rmax = parseInt($("#rowmax").val());
             var cmin = parseInt($("#colmin").val());
@@ -240,12 +252,16 @@ $(document).ready(function(){
             $("div#tabs ul").append("<li><a href='#save"+numTabs+"' class='atab'>R["+rmin+","+rmax+"] C:["+cmin+","+cmax+"] </a><span class='ui-icon ui-icon-closethick'></span><input type='checkbox' class='tcheck'></li>");
             $("div#tabs").append("<div class='saves' id='save"+numTabs+"'><div class='tbles'><table>"+table+"</table></div></div>");
             $("div#tabs").tabs("refresh");
+            // disable the submit button if the tab limit has been reached
             if (numTabs >= TabLimit)
                 $("#save-btn").prop("disabled", true);
         }
     });
     // Reference: https://jqueryui.com/tabs/#manipulation
+    // Reference: https://api.jquery.com/remove/
     tabs.on( "click", "span.ui-icon-closethick", function() {
+        // statement both removes list element and sets panelId to the name of the destination id
+        // Reference: https://jqueryui.com/tabs/#manipulation
         var panelId = $( this ).closest( "li" ).remove().attr("aria-controls");
         $( "#" + panelId ).remove();
         tabs.tabs( "refresh" );
@@ -254,10 +270,12 @@ $(document).ready(function(){
         var alist = document.getElementsByClassName('atab');
         var divlist = document.getElementsByClassName('saves');
 
+        // Reorganizes tab indicies to prevent unexpected behavior
         console.log("alist len: " + alist.length);
         console.log("divlist len: " + divlist.length);
 
         if (numTabs > 0) {
+            // Resetting indicies for each tab
             for (var y = 0; y <= numTabs; y++) {
                 var ny = y + 1;
                 if (alist[y]) alist[y].href = "#save"+ny;
@@ -266,24 +284,28 @@ $(document).ready(function(){
             }
         }
     });
+    // @Def: deletes one or more tab elements from page. Action also resets all tab indicies to 
+    //       prevent unexpected behavior
     $("#delete-btn").click(function(){
         var checkArr = document.querySelectorAll('input[type=checkbox]:checked');
-        
+        // Deletes each tab with a checked checkbox
+        // Reference: https://developer.mozilla.org/en-US/docs/Web/CSS/:checked
+        // Reference: https://api.jquery.com/each/
         $('.tcheck:checkbox:checked').each(function(){
+            // statement both removes list element and sets panelId to the name of the destination id
+            // Reference: https://jqueryui.com/tabs/#manipulation
             var panelId = $(this).closest("li").remove().attr("aria-controls");
             $("#"+panelId).remove();
             tabs.tabs("refresh");
             --numTabs;
             $("#save-btn").prop("disabled", false);
         });
-
+        // Reorganizes tab indicies to prevent unexpected behavior
         var alist = document.getElementsByClassName('atab');
         var divlist = document.getElementsByClassName('saves');
 
-        console.log("alist size: " + alist.length);
-        console.log("divlist size: " + divlist.length);
-
         if (numTabs > 0) {
+            // Resetting indicies for each tab
             for (var y = 0; y <= numTabs; y++) {
                 var ny = y + 1;
                 if (alist[y]) alist[y].href = "#save"+ny;

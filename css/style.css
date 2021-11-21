@@ -1,5 +1,5 @@
 /*
-File: index.html
+File: style.css
 GUI Assignment: Creating a functional multiplication table
 Raj Vekeria, UMass Lowell Computer Science, rvekeria@cs.uml.edu
 Copyright(c) 2021 by Raj. All rights reserved. May be freely copied or
@@ -91,6 +91,7 @@ td:first-child, tr:first-child{
     width: 60px;
     font-style: italic;
 }
+/* Resource: https://pretagteam.com/question/how-to-change-the-color-of-error-message-in-jquery-validation*/
 .error {
     color: red;
     width: 100%;
@@ -108,9 +109,11 @@ td:first-child, tr:first-child{
 label {
     text-align: center;
 }
+/* Reference: https://api.jqueryui.com/slider/ */
 #rowslider .ui-slider-range, #colslider .ui-slider-range{
     background: rgb(133, 132, 132);
 }
+/* Reference: https://api.jqueryui.com/slider/ */
 #rowslider .ui-slider-handle, #colslider .ui-slider-handle {
     background: rgb(92, 92, 92);
     border-radius: 35%;
@@ -122,9 +125,12 @@ label {
 #save-btn, #delete-btn {
     font-size: 15px;
 }
+/* Reference: https://stackoverflow.com/questions/17018540/adding-custom-styles-to-jquery-ui-tabs */
 .ui-tabs .ui-tabs-nav {
     background: rgb(192, 192, 192);
 }
-input[type=checkbox] {
-    transform: scale(1.2);
+/* Reference: https://www.geeksforgeeks.org/how-to-set-checkbox-size-in-html-css/https://www.geeksforgeeks.org/how-to-set-checkbox-size-in-html-css/ */
+input.tcheck {
+    width: 15px;
+    height: 15px;
 }
